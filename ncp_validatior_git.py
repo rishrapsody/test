@@ -507,7 +507,7 @@ def main_starts_here() -> None:
 
         file = "{}-{}.csv".format(input,now_converted)
         #print(file)
-        f = open(os.path.join("output","file"),'w+')
+        f = open(os.path.join("output",file),'w+')
         #print(f)
         writer = csv.writer(f)
 
