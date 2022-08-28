@@ -494,9 +494,20 @@ def main_starts_here() -> None:
 
         now = datetime.now()
         now_converted = now.strftime("%d_%m_%Y@%H_%M")
-        file = "result-{}.csv".format(now_converted)
+        try:
+            if not os.path.exits('output'):
+                os.mkdir('output')
+
+        except Exception as e:
+            print(e)
+            func = "folder creation"
+            errors_list.append("Ended into exception while creating/handling output directory")
+            print("Ended into exception while creating/handling output directory.")
+            report_admin(func,e,errors_list)
+
+        file = "{}-{}.csv".format(input,now_converted)
         #print(file)
-        f = open(file,'w+')
+        f = open(os.path.join("output","file"),'w+')
         #print(f)
         writer = csv.writer(f)
 
