@@ -505,7 +505,7 @@ def main_starts_here() -> None:
             print("Ended into exception while creating/handling output directory.")
             report_admin(func,e,errors_list)
 
-        file = "{}-{}.csv".format(input,now_converted)
+        file = "nx{}-{}.csv".format(input,now_converted)
         #print(file)
         f = open(os.path.join("output",file),'w+')
         #print(f)
