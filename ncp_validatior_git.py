@@ -84,6 +84,8 @@ def find_arvpnID_mapping(input: List) -> Union[Dict,Dict,Dict,Dict,Dict]:
             cust_id[nx_id] = response["customer_id"]
             site_name[nx_id] =  response["loc_name"]
         return(arvpn,cust_code,cust_id,local_subnet,site_name)
+    except HTTPSConnectionPool:
+        exit("Unable to establish connection with API server. Check if your VPN is UP\n")
     except Exception as e:
         print(e)
         errors_list.append("Either EE is unresponsive or nexus is not PrivateAccess. Please check")
