@@ -495,7 +495,7 @@ def main_starts_here() -> None:
         now = datetime.now()
         now_converted = now.strftime("%d_%m_%Y@%H_%M")
         try:
-            if not os.path.exits('output'):
+            if not os.path.exists('output'):
                 os.mkdir('output')
 
         except Exception as e:
