@@ -27,7 +27,7 @@ Invalid:
 1. Enter PrivateAccess nxID(separated by commas)[eg.4042106,3150376] :->> 3150376, ABC
 2. Enter PrivateAccess nxID(separated by commas)[eg.4042106,3150376] :->> 3150376XYZ
 
-Default path for Proxy file: $HOME/.ssh/config (update ssh_config_file variable if its different for you)
+Default path for Proxy file: $HOME/.ssh/config (update ssh_config_file variable in user_data.py file if its different for you)
 ''',formatter_class=argparse.RawTextHelpFormatter)
 
 args = parser.parse_args()
@@ -112,6 +112,10 @@ def find_arvpn_server(arvpn_dict: Dict) -> Dict:
             response = requests.request("GET", url, headers=headers, data=payload,verify=False).json()
             temp_dict[k] = response["batch"]["exec"][0]["hostName"]
         return(temp_dict)
+    except requests.exceptions.ConnectionError:
+        exit("Unable to establish connection with API server. Check if your VPN is UP\n")
+    except requests.exceptions.Timeout as e:
+        print ("Timeout Error:",e) 
     except Exception as e:
         print(e)
         errors_list.append("Unable to parse arvpn server name using API call. Check with Admin")
@@ -133,6 +137,10 @@ def get_vpn_tunnel_status(input: List,cust_id: Dict) -> Dict:
             else:
                 tunnel_info[nx_id] = "UP"
         return(tunnel_info)
+    except requests.exceptions.ConnectionError:
+        exit("Unable to establish connection with API server. Check if your VPN is UP\n")
+    except requests.exceptions.Timeout as e:
+        print ("Timeout Error:",e) 
     except Exception as e:
         #print(e)
         func ="get_vpn_tunnel_status"
