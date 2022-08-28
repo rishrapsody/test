@@ -84,7 +84,7 @@ def find_arvpnID_mapping(input: List) -> Union[Dict,Dict,Dict,Dict,Dict]:
             cust_id[nx_id] = response["customer_id"]
             site_name[nx_id] =  response["loc_name"]
         return(arvpn,cust_code,cust_id,local_subnet,site_name)
-    except ConnectionRefusedError:
+    except ConnectionError:
         exit("Unable to establish connection with API server. Check if your VPN is UP\n")
     except Exception as e:
         print(e)
@@ -609,7 +609,7 @@ if __name__ == "__main__":
             current = repo.head.commit
             repo.remotes.origin.pull()
             if current != repo.head.commit:
-                exit("Your script has been auto-updated. Check Confluence for new added updates. You can re-run the script to run validation!!")
+                exit("Your script has been auto-updated. Check Confluence for newly added updates.\nYou can re-run the script to perform validation!!\n")
         except Exception as e:
             print(e)
             exit("Error in pulling repo from remote origin.\n Have you modified the file locally? or moved script to different path?\nIf yes, please delete folder and re-do steps mentioned in confluence")
